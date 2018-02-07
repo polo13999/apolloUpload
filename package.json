@@ -1,0 +1,19 @@
+{
+  "name": "apolloupload",
+  "version": "1.0.0",
+  "description": "使用next + apolloUPload +typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polo13999/apolloUpload.git"
+  },
+  "author": "polo <polo13999@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/polo13999/apolloUpload/issues"
+  },
+  "homepage": "https://github.com/polo13999/apolloUpload#readme"
+}
