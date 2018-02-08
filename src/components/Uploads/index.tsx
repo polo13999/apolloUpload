@@ -1,15 +1,50 @@
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import uploadsQuery from '../gqlSchema/uploads'
 import * as React from 'react';
 
-export interface UploadsProps {
+export interface UploadFileProps {
+  handleChange: any;
 }
 
-export default class Uploads extends React.Component<UploadsProps, any> {
+class UploadFile extends React.Component<UploadFileProps, any> {
+  constructor(props) {
+    super(props)
+    console.log(props)
+  }
   render() {
     return (
       <div>
-        這是單擋上傳
-
+        <input type="file" required={true} onChange={this.props.handleChange} />
       </div>
     );
   }
 }
+export default graphql<any, any>(gql`
+  mutation($file: Upload!) {
+    singleUpload(file: $file) {
+      fileId
+      filename
+      encoding
+      mimetype
+      path
+    }
+  }
+`,
+  {
+    props: ({ mutate }) => ({
+      handleChange: ({ target: { validity, files: [file] } }) => {
+        validity.valid &&
+          mutate({
+            variables: { file },
+            update: (proxy, { data: { singleUpload } }) => {
+              const data: any = proxy.readQuery({ query: uploadsQuery })
+              data.uploads.push(singleUpload)
+              proxy.writeQuery({ query: uploadsQuery, data })
+            }
+          })
+      }
+    })
+  }
+)(UploadFile)
+
