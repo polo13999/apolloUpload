@@ -37,14 +37,14 @@ export default graphql<any, any>(gql`
         validity.valid &&
           mutate({
             variables: { file },
-            update: (proxy, { data: { singleUpload } }) => {
-              console.log('------');
-              console.log(uploadsQuery)
-              const data: any = proxy.readQuery({ query: uploadsQuery, variables: singleUpload })
-              console.log(data)
-              data.uploads.push(singleUpload)
-              proxy.writeQuery({ query: uploadsQuery, data })
-            }
+            // update: (proxy, { data: { singleUpload } }) => {
+            //   console.log('------');
+            //   console.log(uploadsQuery)
+            //   const data: any = proxy.readQuery({ query: uploadsQuery })
+            //   console.log(data)
+            //   data.uploads.push(singleUpload)
+            //   proxy.writeQuery({ query: uploadsQuery, data })
+            // }
           })
       }
     })

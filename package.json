@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "yarn dev:prework && yarn dev:watch",
+    "dev:koa": "yarn dev:prework && yarn dev:watchkoa",
     "dev:watch": "concurrently \"tsc --watch\"  \"cd ./dist/ && node server.js\" ",
+    "dev:watchkoa": "concurrently \"tsc --watch\"  \"cd ./dist/ && node serverkoa.js\" ",
     "dev:prework": "rm -rf ./dist && mkdir ./dist && mkdir ./dist/credentials && cp -rf static ./dist/static && cp ./nextwork/.babelrc ./dist && tsc"
   },
   "repository": {

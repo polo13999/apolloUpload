@@ -31,24 +31,29 @@ const storeFS: any = ({ stream, filename }) => {
   )
 }
 
-const storeDB = file =>
+const storeDB = file => {
+  console.log('storeDB')
+
+  console.log(file)
   db
     .get('uploads')
     .push(file)
     .last()
     .write()
 
+}
+
 const processUpload = async upload => {
   const { stream, filename, mimetype, encoding } = await upload
-  console.log('upload')
-  console.log(upload)
-  console.log('filename')
-  console.log(filename)
+  // console.log('upload')
+  // console.log(upload)
+  // console.log('filename')
+  // console.log(filename)
   const { fileId, path } = await storeFS({ stream, filename })
-  console.log('fileId')
-  console.log(fileId)
-  console.log('path')
-  console.log(path)
+  // console.log('fileId')
+  // console.log(fileId)
+  // console.log('path')
+  // console.log(path)
 
   return storeDB({ fileId, filename, mimetype, encoding, path })
 }
@@ -61,6 +66,10 @@ export default {
   Mutation: {
     singleUpload: (obj, { file }) => {
       console.log('singleUpload')
+      console.log('obj')
+      console.log(obj)
+      console.log('file')
+      console.log(file)
       return processUpload(file)
     },
     multipleUpload: async (obj, { files }) => {

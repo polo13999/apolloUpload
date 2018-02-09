@@ -16,7 +16,9 @@ const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
 const { schema } = require("./graphqlSchema");
 //console.log('schema====')
 //console.log(schema)
+
 app.prepare().then(() => {
+
   const server = express();
   server.use(compression());
   //  server.use(bodyParser.json());
@@ -29,6 +31,8 @@ app.prepare().then(() => {
     apolloUploadExpress(),
     graphqlExpress({ schema })
   );
+
+
   // server.use(
   //   "/graphiql",
   //   graphiqlExpress({
