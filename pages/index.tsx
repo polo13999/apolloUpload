@@ -4,8 +4,8 @@ import UploadFile from '../src/components/Uploads/'
 
 export interface MainPageProps {
 }
-@WithData
-export default class MainPage extends React.Component<MainPageProps, any> {
+
+class MainPage extends React.Component<MainPageProps, any> {
   render() {
     return (
       <div>        測試上傳
@@ -16,3 +16,4 @@ export default class MainPage extends React.Component<MainPageProps, any> {
   }
 }
 
+export default WithData(MainPage)

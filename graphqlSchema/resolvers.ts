@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import promisesAll from 'promises-all'
 import * as mkdirp from 'mkdirp'
-import shortid from 'shortid'
+import * as shortid from 'shortid'
 import * as lowdb from 'lowdb'
 import * as FileSync from 'lowdb/adapters/FileSync'
 import { GraphQLUpload } from 'apollo-upload-server'
@@ -16,8 +16,8 @@ db.defaults({ uploads: [] }).write()
 mkdirp.sync(uploadDir)
 
 const storeFS: any = ({ stream, filename }) => {
-  const id2 = shortid.generate()
-  const path = `${uploadDir}/${id2}-${filename}`
+  const fileId = shortid.generate()
+  const path = `${uploadDir}/${fileId}-${filename}`
   return new Promise((resolve, reject) =>
     stream
       .on('error', error => {
@@ -26,7 +26,7 @@ const storeFS: any = ({ stream, filename }) => {
           fs.unlinkSync(path)
         reject(error)
       })
-      .on('end', () => resolve({ id2, path }))
+      .on('end', () => resolve({ fileId, path }))
       .pipe(fs.createWriteStream(path))
   )
 }
@@ -40,7 +40,16 @@ const storeDB = file =>
 
 const processUpload = async upload => {
   const { stream, filename, mimetype, encoding } = await upload
+  console.log('upload')
+  console.log(upload)
+  console.log('filename')
+  console.log(filename)
   const { fileId, path } = await storeFS({ stream, filename })
+  console.log('fileId')
+  console.log(fileId)
+  console.log('path')
+  console.log(path)
+
   return storeDB({ fileId, filename, mimetype, encoding, path })
 }
 
@@ -51,7 +60,7 @@ export default {
   },
   Mutation: {
     singleUpload: (obj, { file }) => {
-      console.log(obj)
+      console.log('singleUpload')
       return processUpload(file)
     },
     multipleUpload: async (obj, { files }) => {

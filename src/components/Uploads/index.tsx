@@ -1,6 +1,6 @@
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import uploadsQuery from '../gqlSchema/uploads'
+import { uploadsQuery } from '../gqlSchema/uploads'
 import * as React from 'react';
 
 export interface UploadFileProps {
@@ -15,7 +15,7 @@ class UploadFile extends React.Component<UploadFileProps, any> {
   render() {
     return (
       <div>
-        <input type="file" required={true} onChange={this.props.handleChange} />
+        <input type="file" name="goodtestfile" required={true} onChange={this.props.handleChange} />
       </div>
     );
   }
@@ -38,7 +38,10 @@ export default graphql<any, any>(gql`
           mutate({
             variables: { file },
             update: (proxy, { data: { singleUpload } }) => {
-              const data: any = proxy.readQuery({ query: uploadsQuery })
+              console.log('------');
+              console.log(uploadsQuery)
+              const data: any = proxy.readQuery({ query: uploadsQuery, variables: singleUpload })
+              console.log(data)
               data.uploads.push(singleUpload)
               proxy.writeQuery({ query: uploadsQuery, data })
             }
