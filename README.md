@@ -1,5 +1,13 @@
 # apolloUpload
 
-使用 next + typescript 建立 apolloUpload 套件的基本環境
 
-測試時候因為是typescript 要記得去 dist去看uploads的目錄資料夾
+This is example for Next.js & TypeScript & apolloUpload 
+
+
+
+```
+yarn install
+yarn dev
+```
+
+when run this example remember to check dist uploads ，that is typescript build then next runing path
